@@ -1,71 +1,68 @@
-# Developer Knowledge Engine
-> Transforming fragmented developer knowledge into a structured, queryable graph.
+<div align="center">
+  <h1>🧠 Developer Knowledge Engine</h1>
+  <p>An automated ETL pipeline and AI-driven knowledge graph builder that turns unstructured documentation into queryable relational data.</p>
 
-## Project Overview
-The Developer Knowledge Engine (DKE) solves the problem of fragmented developer knowledge scattered across disparate documentation, forums, codebases, and articles. It works by ingesting raw content from various sources, cleaning and parsing the text, using Large Language Models to extract key technical entities and their relationships, and constructing a localized, interconnected queryable Knowledge Graph.
+  <!-- TECH STACK BADGES -->
+  <a href="https://www.python.org/"><img src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python"></a>
+  <a href="https://openai.com/"><img src="https://img.shields.io/badge/OpenAI_LLMs-412991?style=for-the-badge&logo=openai&logoColor=white" alt="OpenAI"></a>
+  <a href="https://networkx.org/"><img src="https://img.shields.io/badge/NetworkX-000000?style=for-the-badge&logo=python&logoColor=white" alt="NetworkX"></a>
+  <a href="https://www.sqlite.org/"><img src="https://img.shields.io/badge/SQLite-003B57?style=for-the-badge&logo=sqlite&logoColor=white" alt="SQLite"></a>
+  <a href="https://docs.github.com/en/rest"><img src="https://img.shields.io/badge/GitHub_API-181717?style=for-the-badge&logo=github&logoColor=white" alt="GitHub API"></a>
+  <a href="https://streamlit.io/"><img src="https://img.shields.io/badge/Streamlit-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white" alt="Streamlit"></a>
+</div>
 
-## Architecture
-**Data Pipeline Flow:**
-* **Data Collector** → Gathers raw HTML/Markdown content from target developer resources.
-* **Content Parser** → Cleans raw semantic content and strips out unstructured formatting.
-* **LLM Entity Extractor** → Uses GPT models to identify precise technical concepts and their relationships.
-* **Knowledge Graph** → Connects extracted concepts locally using NetworkX and SQLite.
-* **Streamlit UI** → Provides an interactive interface to query, visualize, and explore the knowledge graph.
+<br/>
 
-## Tech Stack
-* **Language:** Python 3.11
-* **Database:** SQLite
-* **Graph Processing:** NetworkX
-* **LLM Integration:** OpenAI API
-* **Frontend:** Streamlit
+## 📖 Overview
+Developer Knowledge Engine solves the problem of fragmented documentation by actively scraping developer repositories and constructing an intelligent, interactive Knowledge Graph. By leveraging OpenAI Large Language Models (LLMs) and strict Pydantic schemas, the system extracts critical architectural entities and relationships, transforming raw text into an O(1) queryable structure.
 
-## Installation & Setup
+## ✨ Key Features
+- **🔄 Automated ETL Pipeline:** Extracts unstructured markdown files directly from remote GitHub repositories and standardizes them locally.
+- **🤖 AI Entity Extraction:** Utilizes LLMs to read through documentation and intelligently extract technical terms, design patterns, and relational data.
+- **🛡️ Strict Data Validation:** Ensures zero hallucinations in graph structure by forcing AI outputs through predefined Pydantic validation schemas.
+- **🕸️ Relational Knowledge Graph:** Constructs an interconnected, interactive graph utilizing `NetworkX` and stores the persistent data locally via `SQLite`.
+- **📊 Visual Interface:** Allows developers to seamlessly navigate complex relationships and search through the parsed knowledge base.
 
-1. **Clone the repository:**
+## 🏗️ Architecture Workflow
+```text
+[ GitHub Repository ] --> (Scraping via API) --> [ Raw Markdown ]
+                                                        |
+                                                        V
+[ SQLite Storage ] <-- (Pydantic Validation) <-- [ OpenAI LLM Parsing ]
+         |
+         V
+[ NetworkX Graph Builder ] --> [ Interactive Streamlit Frontend ]
+```
+
+## 🚀 Getting Started
+
+### Prerequisites
+- Python 3.9+
+- OpenAI API Key
+- GitHub Personal Access Token
+
+### Installation
+1. Clone the repository:
    ```bash
-   git clone <repository_url>
-   cd dke_project
+   git clone https://github.com/Justinvcj/Developer-Knowledge-Engine.git
    ```
-
-2. **Create and activate a virtual environment:**
-   ```bash
-   python -m venv venv
-   # On Windows:
-   venv\Scripts\activate
-   # On macOS/Linux:
-   source venv/bin/activate
-   ```
-
-3. **Install dependencies:**
+2. Install dependencies:
    ```bash
    pip install -r requirements.txt
    ```
-
-4. **Set up the Environment Variables:**
-   Create a `.env` file in the project root directory and add your OpenAI API key:
+3. Set your environment variables in `.env`:
    ```env
-   OPENAI_API_KEY=your_api_key_here
+   OPENAI_API_KEY=your_openai_key
+   GITHUB_TOKEN=your_github_token
    ```
-
-5. **Initialize the Database:**
-   The SQLite databases (`data/*.db`, `data/*.sqlite3`) will be automatically initialized when running the pipeline scripts. Ensure that the `data/` directory exists.
-
-## Usage
-To operate the Developer Knowledge Engine, run the data pipeline scripts sequentially:
-
-1. **Collect Data:**
+4. Run the ETL Pipeline:
    ```bash
-   # Example: python src/collector/scraper.py
+   python pipeline.py
    ```
-2. **Parse Content:**
+5. Launch the Visualizer:
    ```bash
-   # Example: python src/parser/text_cleaner.py
-   ```
-3. **Extract Entities & Relationships:**
-   ```bash
-   python src/engine/extractor.py
+   streamlit run app.py
    ```
 
-## Current Status / Roadmap
-* ✅ **Phase 1-3 (Pipeline & Extraction):** Complete. The system successfully collects raw documents, cleans them, and extracts structured entities and relationships via the LLM API.
-* 🚧 **Phase 4-5 (Graph Querying & UI):** In active development. The upcoming focus is finalizing the local knowledge graph structure using NetworkX and building out the Streamlit user interface for querying and visualization.
+## 📄 License
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
